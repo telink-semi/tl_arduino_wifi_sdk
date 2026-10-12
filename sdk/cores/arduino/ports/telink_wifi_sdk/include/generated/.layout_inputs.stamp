@@ -1,0 +1,8 @@
+{
+  "cert_bin_sha256": "",
+  "cert_bin_size": 0,
+  "config_sha256": "6bc1f91adfdf06c45960ff3dd95feb53a6b4bb0cbeda24a85438c10486b92545",
+  "layout_csv_sha256": "de645833397b1cb80eca8eaf9ecec5c55e0961565a466cce3825ed726f571cae",
+  "mtls_bin_sha256": "",
+  "mtls_bin_size": 0
+}

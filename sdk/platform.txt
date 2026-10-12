@@ -1,0 +1,144 @@
+# For more info:
+# https://arduino.github.io/arduino-cli/latest/platform-specification/
+
+name= w91
+version=1.0.0
+
+############################################################
+# Complier config
+############################################################
+
+##Define Includes
+compiler.gcc_version       =   10.3.0
+compiler.sdkinc.flag1	    =   -I "{runtime.platform.path}/cores/arduino/ports" -I "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/lib" -I "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/include" -I "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/include/cli" -I "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/include/mbedtls" -I "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/api/include" -I "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/include/FreeRTOS" -I "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/include/freebsd" -I "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/include/hal" -I "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/include/hal/ndsv5" -I "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/lib/lwip/src/include" -I "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/lib/lwip/ports/freertos/include" -I "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/lib/hostap/utils" -I "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/lib/scdc" -I "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/lib/net/mqtt/coreMQTT" -I "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/lib/net/mqtt/coreMQTT-agent" -I "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/lib/net/http" -I "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/lib/net/esp_http_client/include" -I "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/lib/net/esp-tls" -I "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/lib/tlsr_mcuboot/mcuboot/boot/espressif/hal/include/esp32" -I "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/lib/net/tcp-transport" -I "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/lib/mbedtls-2.16.2/include/mbedtls" -I "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/lib/ble/nimble/mynewt-core/encoding/base64/include"
+compiler.sdkinc.flag2	    =   -include "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/include/generated/autoconf.h" -include "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/include/rom/fixedconf.h" -include "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/include/generated/kconfig2lwipopt.h" -include "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/include/generated/kconfig2freertosopt.h"
+compiler.sdkinc.flag3      =   -I "{runtime.platform.path}/cores/arduino" -I "{runtime.platform.path}/cores/arduino/ports/util" -I "{runtime.platform.path}/cores/arduino/ports/third_party/littlefs" -I "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}"
+compiler.sdkinc.flags	    =	{compiler.sdkinc.flag1} {compiler.sdkinc.flag2} {compiler.sdkinc.flag3}
+compiler.libs.path         =  {runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/lib
+
+##Define Path
+compiler.path= {runtime.tools.telink_toolchains.path}/
+
+##Define Link Script
+compiler.ldscript  	    =	-T "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/link/wits.lds" -T "{runtime.platform.path}/cores/arduino/ports/{build.base_sdk}/link/wits.rom_v2.ld"
+
+
+##Define: Tartget Processor
+compiler.Processor = 
+
+##Define: Optimization
+compiler.Optimization = -Os
+##-flto
+
+##Define: Debugging
+compiler.Debugging = -g3
+
+##Define: GNU RISC-V Cross Assembler
+compiler.S.cmd = riscv-gcc
+compiler.S.Preprocessor = -x assembler-with-cpp {build.define}
+compiler.S.Includes = {compiler.sdkinc.flags}
+compiler.S.Warnings =
+compiler.S.Miscellaneous = 
+
+##Define: GNU RISC-V Cross C Compiler
+compiler.c.cmd = riscv-gcc
+compiler.c.Preprocessor = {build.define}
+compiler.c.Includes = {compiler.sdkinc.flags} {includes}
+compiler.c.Warnings =
+compiler.c.Miscellaneous = -D__WITS__ -DCONFIG_TEST_AUDIO_HTTP -DBOARD_{build.board} -Wall -Werror -fno-common -fno-exceptions -ffunction-sections -fdata-sections -pipe -mcmodel=medany -Wall -fno-strict-aliasing -fno-builtin -funroll-loops -ffunction-sections -fdata-sections -march=rv32imac -mabi=ilp32 -matomic
+
+##Define: GNU RISC-V Cross C++ Compiler
+compiler.cpp.cmd=riscv-g++
+compiler.cpp.Preprocessor = {build.define}
+compiler.cpp.Includes = {compiler.sdkinc.flags} {includes}
+compiler.cpp.Warnings =
+compiler.cpp.Miscellaneous = {compiler.c.Miscellaneous}
+
+##Define: GNU RISC-V Cross C++ Linker
+compiler.elf.cmd = riscv-ld
+compiler.elf.Miscellaneous = --no-relax -Bstatic --gc-sections --no-dynamic-linker 
+compiler.elf.path = {runtime.tools.telink_toolchains.path}/nds32le-elf-mculib-v5/bin/
+compiler.elf.libs         =  -L "{compiler.elf.path}../lib/gcc/riscv32-elf/{compiler.gcc_version}/../../../../riscv32-elf/lib" -lc -L "{compiler.elf.path}../lib/gcc/riscv32-elf/{compiler.gcc_version}/../../../../riscv32-elf/lib" -lm -L "{compiler.elf.path}../lib/gcc/riscv32-elf/{compiler.gcc_version}" -lgcc -lstdc++
+compiler.elf.libs_common        =   "{compiler.libs.path}/telink_wifi_sdk_w91.a"
+
+
+##Define: Gar
+compiler.ar.cmd=riscv-gcc-ar
+compiler.ar.flags = crs
+compiler.ar.extra_flags=
+
+##Define: Bin
+compiler.elf2bin.cmd = riscv-objcopy
+compiler.elf2bin.flags = -O binary 
+
+##Define: HEX
+compiler.elf2hex.cmd = riscv-objcopy
+compiler.elf2hex.flags = -O ihex 
+
+##Define: Dump
+compiler.dump.cmd = riscv-objdump
+compiler.dump.flags = --source --all-headers --demangle --line-numbers --wide
+
+##Define: Size
+compiler.size.cmd = riscv-size
+compiler.size.flags = -A
+
+##Define: ImageTool
+compiler.imgtool = "{runtime.tools.telink_wifi_upload_tool.path}/imgtool"
+
+############################################################
+# Compilation preprocessing
+############################################################
+##recipe.hooks.sketch.prebuild.1.pattern =export PATH=$PATH:{compiler.path}
+
+recipe.hooks.objcopy.postobjcopy.1.pattern ="{compiler.path}{compiler.size.cmd}" {compiler.size.flags} "{build.path}/{build.project_name}.elf"
+recipe.hooks.objcopy.postobjcopy.2.pattern ="{compiler.path}{compiler.size.cmd}" "{build.path}/{build.project_name}.elf"
+recipe.hooks.objcopy.postobjcopy.3.pattern ="{compiler.path}ls" -l "{build.path}/{build.project_name}.bin" 
+recipe.hooks.objcopy.postobjcopy.4.pattern = {compiler.imgtool} sign --align 4 --version 0.1 --header-size 0x20 --slot-size 0x180000 --pad-header "{build.path}/{build.project_name}.bin" "{build.path}/{build.project_name}.signed.bin"
+
+############################################################
+# Start compiling
+############################################################
+
+## Compile S files
+recipe.S.o.pattern="{compiler.path}{compiler.S.cmd}" {compiler.Processor} {compiler.Optimization} {compiler.S.Warnings} {compiler.Debugging} {compiler.S.Preprocessor} {compiler.S.Includes} {compiler.S.Warnings} {compiler.S.Miscellaneous} {includes} -MMD -MP "{source_file}" -c -o "{object_file}" 
+
+## Compile c files
+recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.Processor} {compiler.Optimization} {compiler.c.Warnings} {compiler.Debugging} {compiler.c.Preprocessor} {compiler.c.Includes} {compiler.c.Warnings} {compiler.c.Miscellaneous} -I "{build.path}/sketch" {includes} "{source_file}" -c -o "{object_file}"
+
+## Compile cpp files
+recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.Processor} {compiler.Optimization} {compiler.cpp.Warnings} {compiler.Debugging} {compiler.cpp.Preprocessor} {compiler.cpp.Includes} {compiler.cpp.Warnings} {compiler.cpp.Miscellaneous} -I "{build.path}/sketch" {includes} "{source_file}" -c -o "{object_file}"
+
+## Create archives
+recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} "{archive_file_path}" "{object_file}"
+
+## Create ELF file
+recipe.c.combine.pattern  ="{compiler.path}{compiler.elf.cmd}" {compiler.ldscript} {compiler.elf.Miscellaneous} -o "{build.path}/{build.project_name}.elf" --start-group --whole-archive {compiler.elf.libs_common} "{build.path}/{archive_file}" {object_files} --no-whole-archive {compiler.elf.libs} --end-group 
+
+##Create Listing
+##recipe.objcopy.dump.pattern ="{compiler.path}{compiler.dump.cmd}" {compiler.dump.flags} {build.path}/{build.project_name}.elf > {build.path}/{build.project_name}.lst
+
+## Create BIN File
+recipe.objcopy.epp.pattern="{compiler.path}{compiler.elf2bin.cmd}" {compiler.elf2bin.flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.bin"
+
+## Create HEX File
+##recipe.objcopy.hex.pattern="{compiler.path}{compiler.elf2hex.cmd}" {compiler.elf2hex.flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.hex"
+
+## Compute size
+recipe.size.pattern="{compiler.path}{compiler.size.cmd}" {compiler.size.flags} "{build.path}/{build.project_name}.elf"
+recipe.size.regex=^(?:\.vectors|\.text|\.rodata|\.eh_frame|\.retention_reset|\.retention_data|\.retention_code|\.ram_code|\.data)\s+([0-9]+).*
+recipe.size.regex.data=^(?:\.retention_reset|\.retention_data|\.retention_code|\.ram_code|\.data|\.sbss|\.bss)\s+([0-9]+).*
+
+## Preprocessor
+preproc.includes.flags= -w -x c++ -M -MG -MP
+recipe.preproc.includes="{compiler.path}{compiler.cpp.cmd}" {preproc.includes.flags} {compiler.Processor} {compiler.Optimization} {compiler.cpp.Warnings} {compiler.Debugging} {compiler.cpp.Preprocessor} {compiler.cpp.Includes} {compiler.cpp.Warnings} {compiler.cpp.Miscellaneous} {includes} -MF "{source_file}.d" "{source_file}"
+
+preproc.macros.flags= -w -x c++ -E -CC
+recipe.preproc.macros="{compiler.path}{compiler.cpp.cmd}" {preproc.macros.flags} {compiler.Processor} {compiler.Optimization} {compiler.cpp.Warnings} {compiler.Debugging} {compiler.cpp.Preprocessor} {compiler.cpp.Includes} {compiler.cpp.Warnings} {compiler.cpp.Miscellaneous} -I "{build.path}/sketch" {includes} "{source_file}" -o "{preprocessed_file_path}"
+
+############################################################
+# Upload
+############################################################
+tools.telink_wifi_upload_tool.upload.params.verbose = -v
+tools.telink_wifi_upload_tool.upload.pattern = {upload.cmd}
+

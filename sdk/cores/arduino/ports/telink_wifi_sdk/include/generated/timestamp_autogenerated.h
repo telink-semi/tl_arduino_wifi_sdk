@@ -1,0 +1,5 @@
+#define WITS_DATE "Oct 12 2026"
+#define WITS_TIME "08:18:16"
+#define WITS_TZ "+0000"
+#define WITS_DMI_DATE "10/12/2026"
+#define WITS_BUILD_DATE 0x20261012

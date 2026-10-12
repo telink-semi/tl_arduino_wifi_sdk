@@ -1,0 +1,552 @@
+#ifndef CONFIG_FREERTOS
+#define configFREERTOS 0
+#else
+#define configFREERTOS CONFIG_FREERTOS
+#endif
+
+#ifndef CONFIG_FREERTOS_ASSERT_VERBOSITY
+#define configFREERTOS_ASSERT_VERBOSITY 0
+#else
+#define configFREERTOS_ASSERT_VERBOSITY CONFIG_FREERTOS_ASSERT_VERBOSITY
+#endif
+
+#ifndef CONFIG_FREERTOS_VERSION
+#define configFREERTOS_VERSION 0
+#else
+#define configFREERTOS_VERSION CONFIG_FREERTOS_VERSION
+#endif
+
+#ifndef CONFIG_PORT_NEWLIB
+#define configPORT_NEWLIB 0
+#else
+#define configPORT_NEWLIB CONFIG_PORT_NEWLIB
+#endif
+
+#ifndef CONFIG_DEFAULT_STACK_SIZE
+#define configDEFAULT_STACK_SIZE 0
+#else
+#define configDEFAULT_STACK_SIZE CONFIG_DEFAULT_STACK_SIZE
+#endif
+
+#ifndef CONFIG_MAX_PRIORITIES
+#define configMAX_PRIORITIES 0
+#else
+#define configMAX_PRIORITIES CONFIG_MAX_PRIORITIES
+#endif
+
+#ifndef CONFIG_DEFAULT_TASK_PRIORITY
+#define configDEFAULT_TASK_PRIORITY 0
+#else
+#define configDEFAULT_TASK_PRIORITY CONFIG_DEFAULT_TASK_PRIORITY
+#endif
+
+#ifndef CONFIG_MAX_TASK_NAME_LEN
+#define configMAX_TASK_NAME_LEN 0
+#else
+#define configMAX_TASK_NAME_LEN CONFIG_MAX_TASK_NAME_LEN
+#endif
+
+#ifndef CONFIG_IDLE_TASK_NAME
+#define configIDLE_TASK_NAME 0
+#else
+#define configIDLE_TASK_NAME CONFIG_IDLE_TASK_NAME
+#endif
+
+#ifndef CONFIG_TLSR_FLASH_RMW_WORKER
+#define configTLSR_FLASH_RMW_WORKER 0
+#else
+#define configTLSR_FLASH_RMW_WORKER CONFIG_TLSR_FLASH_RMW_WORKER
+#endif
+
+#ifndef CONFIG_TLSR_FLASH_RMW_WORKER_STACK_SIZE
+#define configTLSR_FLASH_RMW_WORKER_STACK_SIZE 0
+#else
+#define configTLSR_FLASH_RMW_WORKER_STACK_SIZE CONFIG_TLSR_FLASH_RMW_WORKER_STACK_SIZE
+#endif
+
+#ifndef CONFIG_USE_PREEMPTION
+#define configUSE_PREEMPTION 0
+#else
+#define configUSE_PREEMPTION CONFIG_USE_PREEMPTION
+#endif
+
+#ifndef CONFIG_USE_TIME_SLICING
+#define configUSE_TIME_SLICING 0
+#else
+#define configUSE_TIME_SLICING CONFIG_USE_TIME_SLICING
+#endif
+
+#ifndef CONFIG_IDLE_SHOULD_YIELD
+#define configIDLE_SHOULD_YIELD 0
+#else
+#define configIDLE_SHOULD_YIELD CONFIG_IDLE_SHOULD_YIELD
+#endif
+
+#ifndef CONFIG_USE_PORT_OPTIMISED_TASK_SELECTION
+#define configUSE_PORT_OPTIMISED_TASK_SELECTION 0
+#else
+#define configUSE_PORT_OPTIMISED_TASK_SELECTION CONFIG_USE_PORT_OPTIMISED_TASK_SELECTION
+#endif
+
+#ifndef CONFIG_USE_NEWLIB_REENTRANT
+#define configUSE_NEWLIB_REENTRANT 0
+#else
+#define configUSE_NEWLIB_REENTRANT CONFIG_USE_NEWLIB_REENTRANT
+#endif
+
+#ifndef CONFIG_USE_DAEMON_TASK_STARTUP_HOOK
+#define configUSE_DAEMON_TASK_STARTUP_HOOK 0
+#else
+#define configUSE_DAEMON_TASK_STARTUP_HOOK CONFIG_USE_DAEMON_TASK_STARTUP_HOOK
+#endif
+
+#ifndef CONFIG_USE_TASK_FPU_SUPPORT
+#define configUSE_TASK_FPU_SUPPORT 0
+#else
+#define configUSE_TASK_FPU_SUPPORT CONFIG_USE_TASK_FPU_SUPPORT
+#endif
+
+#ifndef CONFIG_USE_IDLE_HOOK
+#define configUSE_IDLE_HOOK 0
+#else
+#define configUSE_IDLE_HOOK CONFIG_USE_IDLE_HOOK
+#endif
+
+#ifndef CONFIG_GENERATE_RUN_TIME_STATS
+#define configGENERATE_RUN_TIME_STATS 0
+#else
+#define configGENERATE_RUN_TIME_STATS CONFIG_GENERATE_RUN_TIME_STATS
+#endif
+
+#ifndef CONFIG_USE_TRACE_FACILITY
+#define configUSE_TRACE_FACILITY 0
+#else
+#define configUSE_TRACE_FACILITY CONFIG_USE_TRACE_FACILITY
+#endif
+
+#ifndef CONFIG_USE_TASK_NOTIFICATIONS
+#define configUSE_TASK_NOTIFICATIONS 0
+#else
+#define configUSE_TASK_NOTIFICATIONS CONFIG_USE_TASK_NOTIFICATIONS
+#endif
+
+#ifndef CONFIG_USE_APPLICATION_TASK_TAG
+#define configUSE_APPLICATION_TASK_TAG 0
+#else
+#define configUSE_APPLICATION_TASK_TAG CONFIG_USE_APPLICATION_TASK_TAG
+#endif
+
+#ifndef CONFIG_NUM_THREAD_LOCAL_STORAGE_POINTERS
+#define configNUM_THREAD_LOCAL_STORAGE_POINTERS 0
+#else
+#define configNUM_THREAD_LOCAL_STORAGE_POINTERS CONFIG_NUM_THREAD_LOCAL_STORAGE_POINTERS
+#endif
+
+#ifndef CONFIG_USE_STATS_FORMATTING_FUNCTIONS
+#define configUSE_STATS_FORMATTING_FUNCTIONS 0
+#else
+#define configUSE_STATS_FORMATTING_FUNCTIONS CONFIG_USE_STATS_FORMATTING_FUNCTIONS
+#endif
+
+#ifndef CONFIG_INCLUDE_eTaskGetState
+#define INCLUDE_eTaskGetState 0
+#else
+#define INCLUDE_eTaskGetState CONFIG_INCLUDE_eTaskGetState
+#endif
+
+#ifndef CONFIG_INCLUDE_uxTaskGetStackHighWaterMark
+#define INCLUDE_uxTaskGetStackHighWaterMark 0
+#else
+#define INCLUDE_uxTaskGetStackHighWaterMark CONFIG_INCLUDE_uxTaskGetStackHighWaterMark
+#endif
+
+#ifndef CONFIG_INCLUDE_uxTaskPriorityGet
+#define INCLUDE_uxTaskPriorityGet 0
+#else
+#define INCLUDE_uxTaskPriorityGet CONFIG_INCLUDE_uxTaskPriorityGet
+#endif
+
+#ifndef CONFIG_INCLUDE_vTaskDelay
+#define INCLUDE_vTaskDelay 0
+#else
+#define INCLUDE_vTaskDelay CONFIG_INCLUDE_vTaskDelay
+#endif
+
+#ifndef CONFIG_INCLUDE_vTaskDelayUntil
+#define INCLUDE_vTaskDelayUntil 0
+#else
+#define INCLUDE_vTaskDelayUntil CONFIG_INCLUDE_vTaskDelayUntil
+#endif
+
+#ifndef CONFIG_INCLUDE_vTaskDelete
+#define INCLUDE_vTaskDelete 0
+#else
+#define INCLUDE_vTaskDelete CONFIG_INCLUDE_vTaskDelete
+#endif
+
+#ifndef CONFIG_INCLUDE_vTaskPrioritySet
+#define INCLUDE_vTaskPrioritySet 0
+#else
+#define INCLUDE_vTaskPrioritySet CONFIG_INCLUDE_vTaskPrioritySet
+#endif
+
+#ifndef CONFIG_INCLUDE_vTaskSuspend
+#define INCLUDE_vTaskSuspend 0
+#else
+#define INCLUDE_vTaskSuspend CONFIG_INCLUDE_vTaskSuspend
+#endif
+
+#ifndef CONFIG_INCLUDE_xTaskAbortDelay
+#define INCLUDE_xTaskAbortDelay 0
+#else
+#define INCLUDE_xTaskAbortDelay CONFIG_INCLUDE_xTaskAbortDelay
+#endif
+
+#ifndef CONFIG_INCLUDE_xTaskGetCurrentTaskHandle
+#define INCLUDE_xTaskGetCurrentTaskHandle 0
+#else
+#define INCLUDE_xTaskGetCurrentTaskHandle CONFIG_INCLUDE_xTaskGetCurrentTaskHandle
+#endif
+
+#ifndef CONFIG_INCLUDE_xTaskGetHandle
+#define INCLUDE_xTaskGetHandle 0
+#else
+#define INCLUDE_xTaskGetHandle CONFIG_INCLUDE_xTaskGetHandle
+#endif
+
+#ifndef CONFIG_INCLUDE_xTaskGetIdleTaskHandle
+#define INCLUDE_xTaskGetIdleTaskHandle 0
+#else
+#define INCLUDE_xTaskGetIdleTaskHandle CONFIG_INCLUDE_xTaskGetIdleTaskHandle
+#endif
+
+#ifndef CONFIG_INCLUDE_xTaskGetSchedulerState
+#define INCLUDE_xTaskGetSchedulerState 0
+#else
+#define INCLUDE_xTaskGetSchedulerState CONFIG_INCLUDE_xTaskGetSchedulerState
+#endif
+
+#ifndef CONFIG_INCLUDE_xTaskResumeFromISR
+#define INCLUDE_xTaskResumeFromISR 0
+#else
+#define INCLUDE_xTaskResumeFromISR CONFIG_INCLUDE_xTaskResumeFromISR
+#endif
+
+#ifndef CONFIG_USE_MUTEXES
+#define configUSE_MUTEXES 0
+#else
+#define configUSE_MUTEXES CONFIG_USE_MUTEXES
+#endif
+
+#ifndef CONFIG_USE_RECURSIVE_MUTEXES
+#define configUSE_RECURSIVE_MUTEXES 0
+#else
+#define configUSE_RECURSIVE_MUTEXES CONFIG_USE_RECURSIVE_MUTEXES
+#endif
+
+#ifndef CONFIG_USE_COUNTING_SEMAPHORES
+#define configUSE_COUNTING_SEMAPHORES 0
+#else
+#define configUSE_COUNTING_SEMAPHORES CONFIG_USE_COUNTING_SEMAPHORES
+#endif
+
+#ifndef CONFIG_USE_QUEUE_SETS
+#define configUSE_QUEUE_SETS 0
+#else
+#define configUSE_QUEUE_SETS CONFIG_USE_QUEUE_SETS
+#endif
+
+#ifndef CONFIG_INCLUDE_xQueueGetMutexHolder
+#define INCLUDE_xQueueGetMutexHolder 0
+#else
+#define INCLUDE_xQueueGetMutexHolder CONFIG_INCLUDE_xQueueGetMutexHolder
+#endif
+
+#ifndef CONFIG_INCLUDE_xSemaphoreGetMutexHolder
+#define INCLUDE_xSemaphoreGetMutexHolder 0
+#else
+#define INCLUDE_xSemaphoreGetMutexHolder CONFIG_INCLUDE_xSemaphoreGetMutexHolder
+#endif
+
+#ifndef CONFIG_USE_POSIX_ERRNO
+#define configUSE_POSIX_ERRNO 0
+#else
+#define configUSE_POSIX_ERRNO CONFIG_USE_POSIX_ERRNO
+#endif
+
+#ifndef CONFIG_TICK_RATE_HZ
+#define configTICK_RATE_HZ 0
+#else
+#define configTICK_RATE_HZ CONFIG_TICK_RATE_HZ
+#endif
+
+#ifndef CONFIG_USE_TICK_HOOK
+#define configUSE_TICK_HOOK 0
+#else
+#define configUSE_TICK_HOOK CONFIG_USE_TICK_HOOK
+#endif
+
+#ifndef CONFIG_USE_16_BIT_TICKS
+#define configUSE_16_BIT_TICKS 0
+#else
+#define configUSE_16_BIT_TICKS CONFIG_USE_16_BIT_TICKS
+#endif
+
+#ifndef CONFIG_USE_TICKLESS_IDLE
+#define configUSE_TICKLESS_IDLE 0
+#else
+#define configUSE_TICKLESS_IDLE CONFIG_USE_TICKLESS_IDLE
+#endif
+
+#ifndef CONFIG_TIMER_HZ
+#define configTIMER_HZ 0
+#else
+#define configTIMER_HZ CONFIG_TIMER_HZ
+#endif
+
+#ifndef CONFIG_XTAL_CLOCK_HZ
+#define configXTAL_CLOCK_HZ 0
+#else
+#define configXTAL_CLOCK_HZ CONFIG_XTAL_CLOCK_HZ
+#endif
+
+#ifndef CONFIG_USE_TIMERS
+#define configUSE_TIMERS 0
+#else
+#define configUSE_TIMERS CONFIG_USE_TIMERS
+#endif
+
+#ifndef CONFIG_TIMER_SERVICE_TASK_NAME
+#define configTIMER_SERVICE_TASK_NAME 0
+#else
+#define configTIMER_SERVICE_TASK_NAME CONFIG_TIMER_SERVICE_TASK_NAME
+#endif
+
+#ifndef CONFIG_TIMER_TASK_PRIORITY
+#define configTIMER_TASK_PRIORITY 0
+#else
+#define configTIMER_TASK_PRIORITY CONFIG_TIMER_TASK_PRIORITY
+#endif
+
+#ifndef CONFIG_TIMER_TASK_STACK_SIZE
+#define configTIMER_TASK_STACK_SIZE 0
+#else
+#define configTIMER_TASK_STACK_SIZE CONFIG_TIMER_TASK_STACK_SIZE
+#endif
+
+#ifndef CONFIG_TIMER_QUEUE_LENGTH
+#define configTIMER_QUEUE_LENGTH 0
+#else
+#define configTIMER_QUEUE_LENGTH CONFIG_TIMER_QUEUE_LENGTH
+#endif
+
+#ifndef CONFIG_INCLUDE_xTimerPendFunctionCall
+#define INCLUDE_xTimerPendFunctionCall 0
+#else
+#define INCLUDE_xTimerPendFunctionCall CONFIG_INCLUDE_xTimerPendFunctionCall
+#endif
+
+#ifndef CONFIG_HEAP_AUTO_SIZE
+#define configHEAP_AUTO_SIZE 0
+#else
+#define configHEAP_AUTO_SIZE CONFIG_HEAP_AUTO_SIZE
+#endif
+
+#ifndef CONFIG_HEAP1_SIZE
+#define configHEAP1_SIZE 0
+#else
+#define configHEAP1_SIZE CONFIG_HEAP1_SIZE
+#endif
+
+#ifndef CONFIG_HEAP2_SIZE
+#define configHEAP2_SIZE 0
+#else
+#define configHEAP2_SIZE CONFIG_HEAP2_SIZE
+#endif
+
+#ifndef CONFIG_HEAP3_SIZE
+#define configHEAP3_SIZE 0
+#else
+#define configHEAP3_SIZE CONFIG_HEAP3_SIZE
+#endif
+
+#ifndef CONFIG_SUPPORT_DMA_DYNAMIC_ALLOC
+#define configSUPPORT_DMA_DYNAMIC_ALLOC 0
+#else
+#define configSUPPORT_DMA_DYNAMIC_ALLOC CONFIG_SUPPORT_DMA_DYNAMIC_ALLOC
+#endif
+
+#ifndef CONFIG_USE_MALLOC_DEBUG
+#define configUSE_MALLOC_DEBUG 0
+#else
+#define configUSE_MALLOC_DEBUG CONFIG_USE_MALLOC_DEBUG
+#endif
+
+#ifndef CONFIG_SIZE_ALLOC_LIST
+#define configSIZE_ALLOC_LIST 0
+#else
+#define configSIZE_ALLOC_LIST CONFIG_SIZE_ALLOC_LIST
+#endif
+
+#ifndef CONFIG_MEM_HEAP_DEBUG
+#define configMEM_HEAP_DEBUG 0
+#else
+#define configMEM_HEAP_DEBUG CONFIG_MEM_HEAP_DEBUG
+#endif
+
+#ifndef CONFIG_MEM_HEAP_DEBUG_FUNCNAMELEN
+#define configMEM_HEAP_DEBUG_FUNCNAMELEN 0
+#else
+#define configMEM_HEAP_DEBUG_FUNCNAMELEN CONFIG_MEM_HEAP_DEBUG_FUNCNAMELEN
+#endif
+
+#ifndef CONFIG_MEM_HEAP_PERIOD_TIME_DEBUG
+#define configMEM_HEAP_PERIOD_TIME_DEBUG 0
+#else
+#define configMEM_HEAP_PERIOD_TIME_DEBUG CONFIG_MEM_HEAP_PERIOD_TIME_DEBUG
+#endif
+
+#ifndef CONFIG_MEM_HEAP_EXT
+#define configMEM_HEAP_EXT 0
+#else
+#define configMEM_HEAP_EXT CONFIG_MEM_HEAP_EXT
+#endif
+
+#ifndef CONFIG_MEM_HEAP_SEARCH_REF
+#define configMEM_HEAP_SEARCH_REF 0
+#else
+#define configMEM_HEAP_SEARCH_REF CONFIG_MEM_HEAP_SEARCH_REF
+#endif
+
+#ifndef CONFIG_CHECK_FOR_STACK_OVERFLOW
+#define configCHECK_FOR_STACK_OVERFLOW 0
+#else
+#define configCHECK_FOR_STACK_OVERFLOW CONFIG_CHECK_FOR_STACK_OVERFLOW
+#endif
+
+#ifndef CONFIG_RECORD_STACK_HIGH_ADDRESS
+#define configRECORD_STACK_HIGH_ADDRESS 0
+#else
+#define configRECORD_STACK_HIGH_ADDRESS CONFIG_RECORD_STACK_HIGH_ADDRESS
+#endif
+
+#ifndef CONFIG_HSP_ENABLE
+#define configHSP_ENABLE 0
+#else
+#define configHSP_ENABLE CONFIG_HSP_ENABLE
+#endif
+
+#ifndef CONFIG_SUPPORT_DYNAMIC_ALLOCATION
+#define configSUPPORT_DYNAMIC_ALLOCATION 0
+#else
+#define configSUPPORT_DYNAMIC_ALLOCATION CONFIG_SUPPORT_DYNAMIC_ALLOCATION
+#endif
+
+#ifndef CONFIG_SUPPORT_STATIC_ALLOCATION
+#define configSUPPORT_STATIC_ALLOCATION 0
+#else
+#define configSUPPORT_STATIC_ALLOCATION CONFIG_SUPPORT_STATIC_ALLOCATION
+#endif
+
+#ifndef CONFIG_FPU_D32
+#define configFPU_D32 0
+#else
+#define configFPU_D32 CONFIG_FPU_D32
+#endif
+
+#ifndef CONFIG_INTERRUPT_CONTROLLER_BASE_ADDRESS
+#define configINTERRUPT_CONTROLLER_BASE_ADDRESS 0
+#else
+#define configINTERRUPT_CONTROLLER_BASE_ADDRESS CONFIG_INTERRUPT_CONTROLLER_BASE_ADDRESS
+#endif
+
+#ifndef CONFIG_INTERRUPT_CONTROLLER_CPU_INTERFACE_OFFSET
+#define configINTERRUPT_CONTROLLER_CPU_INTERFACE_OFFSET 0
+#else
+#define configINTERRUPT_CONTROLLER_CPU_INTERFACE_OFFSET CONFIG_INTERRUPT_CONTROLLER_CPU_INTERFACE_OFFSET
+#endif
+
+#ifndef CONFIG_UNIQUE_INTERRUPT_PRIORITIES
+#define configUNIQUE_INTERRUPT_PRIORITIES 0
+#else
+#define configUNIQUE_INTERRUPT_PRIORITIES CONFIG_UNIQUE_INTERRUPT_PRIORITIES
+#endif
+
+#ifndef CONFIG_MAX_API_CALL_INTERRUPT_PRIORITY
+#define configMAX_API_CALL_INTERRUPT_PRIORITY 0
+#else
+#define configMAX_API_CALL_INTERRUPT_PRIORITY CONFIG_MAX_API_CALL_INTERRUPT_PRIORITY
+#endif
+
+#ifndef CONFIG_MTIME_BASE_ADDRESS
+#define configMTIME_BASE_ADDRESS 0
+#else
+#define configMTIME_BASE_ADDRESS CONFIG_MTIME_BASE_ADDRESS
+#endif
+
+#ifndef CONFIG_MTIME_CLK_DIV
+#define configMTIME_CLK_DIV 0
+#else
+#define configMTIME_CLK_DIV CONFIG_MTIME_CLK_DIV
+#endif
+
+#ifndef CONFIG_CLINT_BASE_ADDRESS
+#define configCLINT_BASE_ADDRESS 0
+#else
+#define configCLINT_BASE_ADDRESS CONFIG_CLINT_BASE_ADDRESS
+#endif
+
+#ifndef CONFIG_USE_LIST_DATA_INTEGRITY_CHECK_BYTES
+#define configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES 0
+#else
+#define configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES CONFIG_USE_LIST_DATA_INTEGRITY_CHECK_BYTES
+#endif
+
+#ifndef CONFIG_USE_CO_ROUTINES
+#define configUSE_CO_ROUTINES 0
+#else
+#define configUSE_CO_ROUTINES CONFIG_USE_CO_ROUTINES
+#endif
+
+#ifndef CONFIG_USE_ALTERNATIVE_API
+#define configUSE_ALTERNATIVE_API 0
+#else
+#define configUSE_ALTERNATIVE_API CONFIG_USE_ALTERNATIVE_API
+#endif
+
+#ifndef CONFIG_FREERTOS_INDIRECT_PORT_FUNCTION
+#define configFREERTOS_INDIRECT_PORT_FUNCTION 0
+#else
+#define configFREERTOS_INDIRECT_PORT_FUNCTION CONFIG_FREERTOS_INDIRECT_PORT_FUNCTION
+#endif
+
+#ifndef CONFIG_USE_T32
+#define configUSE_T32 0
+#else
+#define configUSE_T32 CONFIG_USE_T32
+#endif
+
+#ifndef CONFIG_USE_QUEUE_POOL
+#define configUSE_QUEUE_POOL 0
+#else
+#define configUSE_QUEUE_POOL CONFIG_USE_QUEUE_POOL
+#endif
+
+#ifndef CONFIG_QUEUE_POOL_SIZE
+#define configQUEUE_POOL_SIZE 0
+#else
+#define configQUEUE_POOL_SIZE CONFIG_QUEUE_POOL_SIZE
+#endif
+
+#ifndef CONFIG_USE_TIMER_POOL
+#define configUSE_TIMER_POOL 0
+#else
+#define configUSE_TIMER_POOL CONFIG_USE_TIMER_POOL
+#endif
+
+#ifndef CONFIG_TIMER_POOL_SIZE
+#define configTIMER_POOL_SIZE 0
+#else
+#define configTIMER_POOL_SIZE CONFIG_TIMER_POOL_SIZE
+#endif
+

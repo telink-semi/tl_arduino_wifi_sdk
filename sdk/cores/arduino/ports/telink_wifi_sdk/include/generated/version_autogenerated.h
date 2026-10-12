@@ -1,0 +1,8 @@
+#define WITS_TAGLINE "WITS: Wireless IOT Telink System"
+#define PLAIN_VERSION "79e07fc9"
+#define VERSION_LINE_DESC "Development Branch 79e07fc9"
+#define CC_VERSION_STRING "riscv32-elf-gcc.gnu (2022-02-07_nds32le-elf-mculib-v5-86807094a2f) 10.3.0"
+#define LD_VERSION_STRING "GNU ld (2022-02-07_nds32le-elf-mculib-v5-02f5c82e489) 2.32.0.20190522"
+#define GIT_VERSION_STRING "79e07fc937a91083eac332dfe5a9a237acdbd7de"
+#define GIT_TAG_STRING "79e07fc9"
+#define GIT_API_VERSION_STRING "79e07fc937a91083eac332dfe5a9a237acdbd7de"

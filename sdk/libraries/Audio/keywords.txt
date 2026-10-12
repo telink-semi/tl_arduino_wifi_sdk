@@ -1,0 +1,45 @@
+#######################################
+# Syntax Coloring Map For WiFi
+#######################################
+
+#######################################
+# Library (KEYWORD3)
+#######################################
+
+Audio	KEYWORD3
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+HardwareAudio	KEYWORD1
+
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+stop	KEYWORD2
+flush	KEYWORD2
+clear	KEYWORD2
+startRecord     KEYWORD2
+stopRecord     KEYWORD2
+startPlay     KEYWORD2
+stopPlay     KEYWORD2
+opened     KEYWORD2
+record     KEYWORD2
+play     KEYWORD2
+playAsync     KEYWORD2
+playSync     KEYWORD2
+readRecordAsync     KEYWORD2
+readRecordSync     KEYWORD2
+isPlayBusy     KEYWORD2
+isRecordBusy     KEYWORD2
+getDataSize     KEYWORD2
+getFrameSize     KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+AUDIO_MAX_LEN	LITERAL1

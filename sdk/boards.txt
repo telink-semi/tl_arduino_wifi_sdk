@@ -1,0 +1,33 @@
+# See: https://arduino.github.io/arduino-cli/latest/platform-specification/
+
+#menu.UploadSpeed=Upload Speed
+#menu.CPUFreq=CPU Frequency
+#menu.FlashFreq=Flash Frequency
+#menu.FlashMode=Flash Mode
+#menu.FlashSize=Flash Size
+#menu.DebugLevel=Core Debug Level
+#menu.PSRAM=PSRAM
+#menu.Revision=Board Revision
+menu.EraseFlash=Erase Flash
+menu.PartitionScheme=Partition Scheme
+menu.debug.server=ICEMAN
+menu.debug.tool=riscv32-elf-gdb
+
+############################################################
+#######     AIOT_DK2
+############################################################
+AIOT_DK2.name                       =   AIOT_DK2
+AIOT_DK2.build.core                 =   arduino
+AIOT_DK2.build.board                =   AIOT_DK2
+AIOT_DK2.build.variant              =   w91
+AIOT_DK2.build.define               =   
+AIOT_DK2.build.base_sdk             =   telink_wifi_sdk
+AIOT_DK2.build.architecture         =   riscv
+AIOT_DK2.upload.tool                =   telink_wifi_upload_tool
+AIOT_DK2.upload.protocol            =   UART
+AIOT_DK2.upload.rambin              =   "{runtime.tools.telink_wifi_upload_tool.path}/da/da.ram.bin"
+AIOT_DK2.upload.speed               =   2000000
+AIOT_DK2.upload.app_address         =   0x80080000
+AIOT_DK2.upload.cmd                 =   "{runtime.tools.telink_wifi_upload_tool.path}/sctool" -p {serial.port} -b {upload.speed} -da {upload.rambin} --after hw_reset flash_write {upload.app_address} "{build.path}/{build.project_name}.signed.bin"
+AIOT_DK2.upload.maximum_size        =   2097152
+AIOT_DK2.upload.maximum_data_size   =   262144

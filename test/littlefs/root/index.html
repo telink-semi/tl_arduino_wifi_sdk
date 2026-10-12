@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WiFi Configuration Terminal</title>
+    <style>
+        :root {
+            --primary-color: #007AFF; /* iOS 风格蓝 */
+            --bg-color: #F2F2F7;
+            --card-bg: #FFFFFF;
+            --text-main: #1C1C1E;
+            --text-sec: #8E8E93;
+            --border-color: #C6C6C8;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding-top: 40px;
+        }
+
+        /* 主卡片容器 */
+        .main-card {
+            background: var(--card-bg);
+            width: 90%;
+            max-width: 400px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--text-main);
+            text-align: center;
+        }
+
+        /* 表单样式 */
+        .form-group {
+            margin-bottom: 15px;
+            width: 100%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        input[type="text"], input[type="password"] {
+            width: calc(100% - 24px); /* 减去左右padding */
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            background: #F9F9F9;
+            transition: border 0.2s;
+            margin: 0 0px; /* 左右各留12px margin */
+        }
+
+        input[type="text"]:focus, input[type="password"]:focus {
+            border-color: var(--primary-color);
+            background: #fff;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-sizing: border-box;
+        }
+
+        button:active {
+            background-color: #0056b3;
+        }
+
+        /* --- 表格修复核心代码 --- */
+        .scan-section {
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            /* 关键修复1：固定表格布局，防止内容撑开 */
+            table-layout: fixed;
+        }
+
+        th {
+            text-align: left;
+            font-size: 13px;
+            color: var(--text-sec);
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            font-weight: 400;
+        }
+
+        td {
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 15px;
+            vertical-align: middle;
+        }
+
+        /* SSID 列：允许换行，防止长名称撑破屏幕 */
+        .col-ssid {
+            width: 60%;
+            word-break: break-all;
+            color: var(--text-main);
+        }
+
+        /* 信号列：关键修复区域 */
+        .col-signal {
+            width: 40%;
+            text-align: right;
+            /* 关键修复2：允许内部内容换行，防止span溢出 */
+            word-break: break-all;
+        }
+
+        /* 信号条容器：使用 Flexbox 对齐 */
+        .signal-container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            gap: 2px; /* 方块之间的间距 */
+            height: 20px; /* 固定高度防止抖动 */
+        }
+
+        .signal-bar-0 {
+            display: block;
+            width: 4px;
+            height: 25%;
+            border-radius: 1px;
+            background-color: #ddd; /* 默认灰色背景 */
+        }
+
+        .signal-bar-1 {
+            display: block;
+            width: 4px;
+            height: 50%;
+            border-radius: 1px;
+            background-color: #ddd; /* 默认灰色背景 */
+        }
+
+        .signal-bar-2 {
+            display: block;
+            width: 4px;
+            height: 75%;
+            border-radius: 1px;
+            background-color: #ddd; /* 默认灰色背景 */
+        }
+
+        .signal-bar-3 {
+            display: block;
+            width: 4px;
+            height: 100%;
+            border-radius: 1px;
+            background-color: #ddd; /* 默认灰色背景 */
+        }
+
+        .signal-bar-0.active, .signal-bar-1.active, .signal-bar-2.active, .signal-bar-3.active {
+            background-color: #18880e; /* 激活颜色（绿色） */
+        }
+
+        /* WiFi列表悬停效果 */
+        tr {
+            transition: all 0.3s ease;
+        }
+        
+        tr:hover {
+            background-color: #f0f7ff;
+            transform: translateX(4px);
+            box-shadow: 0 2px 8px rgba(0, 122, 255, 0.1);
+        }
+        
+        tr:hover .col-ssid {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        /* 状态提示 */
+        #status {
+            margin-top: 15px;
+            font-size: 14px;
+            text-align: center;
+            color: var(--primary-color);
+            min-height: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-card">
+    <h2>WiFi Configuration</h2>
+
+    <div class="form-group">
+        <label for="ssid">WiFi Name (SSID)</label>
+        <input type="text" id="ssid" placeholder="SSID" autocomplete="off">
+    </div>
+
+    <div class="form-group">
+        <label for="pass">WiFi Password</label>
+        <div style="position: relative; width: 100%;">
+            <input type="password" id="pass" placeholder="Password" style="width: 100%; padding-right: 60px; box-sizing: border-box;">
+            <button type="button" onclick="togglePasswordVisibility()" style="position: absolute; right: 0; top: 0; height: 100%; width: 50px; background: #f0f0f0; border: 1px solid #ddd; border-left: none; border-radius: 0 8px 8px 0; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-sec); transition: all 0.2s ease; font-size: 12px; font-weight: 500;">
+                <span id="passwordToggle"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path><line x1="2" x2="22" y1="2" y2="22"></line></svg></span>
+            </button>
+        </div>
+    </div>
+
+
+    <button onclick="saveWifi()">Save Configuration</button>
+    <div id="status" style="cursor: pointer; user-select: none;" onclick="handleListClick()"></div>
+
+    <div class="scan-section">
+        <table>
+            <thead>
+                <tr>
+                    <th class="col-ssid">Available Networks</th>
+                    <th class="col-signal">Signal</th>
+                </tr>
+            </thead>
+            <tbody id="scanList">
+                <!-- 扫描结果将插入此处 -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // 控制是否允许手动刷新的标志
+    let canRefresh = false;
+    // 存储定时扫描的ID
+    let scanIntervalId = null;
+    
+    // 页面加载完成后自动扫描，并设置10秒间隔重复扫描
+    window.onload = function() {
+        scanWifi();
+        // 每10秒钟扫描一次
+        scanIntervalId = setInterval(scanWifi, 10000);
+    };
+    
+    // 处理列表点击事件
+    function handleListClick() {
+        if(canRefresh) {
+            scanWifi();
+        }
+    }
+
+    // 扫描 WiFi
+    function scanWifi() {
+        const statusDiv = document.getElementById('status');
+        const listDiv = document.getElementById('scanList');
+        statusDiv.innerHTML = "Scanning...";
+
+        fetch('/scan')
+            .then(response => response.json())
+            .then(data => {
+                // 解析新的响应格式
+                let newNetworks = [];
+                if(data.success && Array.isArray(data.networks)) {
+                    newNetworks = data.networks;
+                } else if(Array.isArray(data)) {
+                    // 兼容旧格式
+                    newNetworks = data;
+                } else {
+                    // 如果data不是预期格式，设置为空数组
+                    newNetworks = [];
+                }
+                
+                if(newNetworks.length === 0) {
+                    // 只在列表为空时显示未发现网络
+                    if(listDiv.children.length === 0) {
+                        listDiv.innerHTML = "<tr><td colspan='2' style='text-align:center; color:#999; padding:20px;'>No networks found</td></tr>";
+                    }
+                    return;
+                }
+                
+                // 收集当前表格中的网络数据
+                const existingNetworks = [];
+                const rows = listDiv.querySelectorAll('tr');
+                rows.forEach(row => {
+                    const ssidCell = row.querySelector('.col-ssid');
+                    if(ssidCell) {
+                        // 提取SSID和RSSI（从信号条数量推断）
+                        const ssid = ssidCell.textContent;
+                        const signalBars = row.querySelectorAll('.signal-bar.active').length;
+                        // 根据信号条数量估算RSSI值
+                        let rssi = -90; // 默认值
+                        switch(signalBars) {
+                            case 4: rssi = -50;
+                                break;
+                            case 3: rssi = -60;
+                                break;
+                            case 2: rssi = -70;
+                                break;
+                            case 1: rssi = -80;
+                                break;
+                        }
+                        existingNetworks.push({ ssid, rssi });
+                    }
+                });
+                
+                // 合并新旧网络数据，去重（保留新的RSSI值）
+                const networkMap = new Map();
+                
+                // 先添加现有网络
+                existingNetworks.forEach(network => {
+                    networkMap.set(network.ssid, network);
+                });
+                
+                // 再添加新网络，覆盖现有网络的RSSI值
+                newNetworks.forEach(network => {
+                    networkMap.set(network.ssid, network);
+                });
+                
+                // 转换为数组并排序
+                const allNetworks = Array.from(networkMap.values());
+                allNetworks.sort((a, b) => b.rssi - a.rssi);
+                
+                // 清空列表并重新添加所有网络
+                listDiv.innerHTML = "";
+                allNetworks.forEach(wifi => {
+                    addWifiToTable(wifi.ssid, wifi.rssi);
+                });
+                
+                // 扫描完成后允许手动刷新
+                canRefresh = true;
+                // 更新状态为手动扫描
+                statusDiv.innerHTML = "Manual Scan";
+                statusDiv.disabled = !canRefresh;
+            })
+            .catch(err => {
+                console.error(err);
+                statusDiv.innerHTML = "Manual Scan";
+                statusDiv.disabled = !canRefresh;
+                // 即使失败也允许手动刷新
+            });
+    }
+
+    // 核心修复：优化 HTML 拼接逻辑
+    function addWifiToTable(ssid, rssi) {
+        const listDiv = document.getElementById('scanList');
+        const signalLevel = getSignalLevel(rssi);
+
+        // 构建信号条 HTML (关键修复：去除字符串中的换行和多余空格)
+        let barsHtml = '<div class="signal-container">';
+        for(let i = 0; i < 4; i++) {
+            // 使用 class 控制激活状态，而不是内联样式
+            const activeClass = i < signalLevel ? 'active' : '';
+            barsHtml += `<span class="signal-bar-${i} ${activeClass}"></span>`;
+        }
+        barsHtml += '</div>';
+
+        // 构建表格行
+        // 关键修复：使用单行字符串拼接，防止浏览器解析出意外的空白节点
+        const rowHtml = `<tr onclick="fillSSID('${escapeHtml(ssid)}', event)">
+            <td class="col-ssid">${escapeHtml(ssid)}</td>
+            <td class="col-signal">${barsHtml}</td>
+        </tr>`;
+
+        listDiv.insertAdjacentHTML('beforeend', rowHtml);
+    }
+
+    // 计算信号强度等级 (0-4)
+    function getSignalLevel(rssi) {
+        if (rssi >= -50) return 4;
+        if (rssi >= -60) return 3;
+        if (rssi >= -70) return 2;
+        if (rssi >= -80) return 1;
+        return 0;
+    }
+
+    // 填入 SSID 到表单
+    function fillSSID(ssid, event) {
+        // 阻止事件冒泡，防止触发手动扫描
+        if(event) {
+            event.stopPropagation();
+        }
+        document.getElementById('ssid').value = ssid;
+    }
+
+    // 保存WiFi配置
+    function saveWifi() {
+        const ssid = document.getElementById('ssid').value;
+        const pass = document.getElementById('pass').value;
+        const statusDiv = document.getElementById('status');
+
+        if(!ssid) {
+            alert("Please enter WiFi name");
+            return;
+        }
+
+        statusDiv.innerHTML = "Saving configuration...";
+
+        // 构造请求体
+        const data = JSON.stringify({ ssid: ssid, password: pass });
+
+        fetch('/save', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: data
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response error');
+            }
+            return response.json();
+        })
+        .then(res => {
+            console.log(res);
+            if (res.success) {
+                // 停止定时扫描任务
+                if (scanIntervalId) {
+                    clearInterval(scanIntervalId);
+                    scanIntervalId = null;
+                }
+                
+                // 直接显示正在重启
+                statusDiv.innerHTML = "Restarting...";
+                
+                // 1秒后更新为设备已重启提示
+                setTimeout(() => {
+                    // 获取主卡片容器
+                    const mainCard = document.querySelector('.main-card');
+                    
+                    // 清空主卡片内容
+                    mainCard.innerHTML = "";
+                    
+                    // 创建美观的重启提示元素
+                    const restartDiv = document.createElement('div');
+                    restartDiv.style.cssText = `
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 40px 20px;
+                        height: 300px;
+                    `;
+                    
+                    const iconDiv = document.createElement('div');
+                    iconDiv.style.cssText = `
+                        font-size: 64px;
+                        margin-bottom: 20px;
+                    `;
+                    iconDiv.textContent = '✅';
+                    
+                    const textDiv = document.createElement('div');
+                    textDiv.style.cssText = `
+                        font-size: 20px;
+                        color: var(--primary-color);
+                        text-align: center;
+                        font-weight: 600;
+                        margin-bottom: 10px;
+                    `;
+                    textDiv.textContent = 'Device restarted';
+                    
+                    const subTextDiv = document.createElement('div');
+                    subTextDiv.style.cssText = `
+                        font-size: 14px;
+                        color: var(--text-sec);
+                        text-align: center;
+                        margin-top: 5px;
+                        line-height: 1.5;
+                    `;
+                    subTextDiv.textContent = 'Please reconnect to device WiFi to configure';
+                    
+                    restartDiv.appendChild(iconDiv);
+                    restartDiv.appendChild(textDiv);
+                    restartDiv.appendChild(subTextDiv);
+                    
+                    // 添加到主卡片
+                    mainCard.appendChild(restartDiv);
+                }, 1000);
+                
+                // 禁用手动扫描
+                canRefresh = false;
+                // Prompt device will restart and apply new configuration
+                    alert("Configuration saved successfully, device will restart shortly");
+            } else {
+                alert("Failed to save configuration");
+            }
+        })
+        .catch(err => {
+            console.error('Failed to save configuration:', err);
+            alert("Failed to save configuration");
+        });
+    }
+
+    // 简单的 HTML 转义，防止 SSID 中包含特殊字符破坏 DOM
+    function escapeHtml(text) {
+        return text
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    // 切换密码可见性
+    function togglePasswordVisibility() {
+        const passInput = document.getElementById('pass');
+        const passwordToggle = document.getElementById('passwordToggle');
+        
+        if (passInput.type === 'password') {
+            passInput.type = 'text';
+            passwordToggle.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path><line x1="2" x2="22" y1="2" y2="22"></line></svg>';
+        } else {
+            passInput.type = 'password';
+            passwordToggle.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+https://doc.telink-semi.cn/arduino//tl_arduino_sdk/lib/telink_wifi_sdk_w91.a-b85abd41ca3b18ffbcff970ce3f23eb87a33dc4c5b17ce731b3824918c8c16f5	cores/arduino/ports/telink_wifi_sdk/lib/telink_wifi_sdk_w91.a
